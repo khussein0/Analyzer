@@ -1,0 +1,78 @@
+
+<app-filter
+[filterModel]="filterModel"
+[agents]="agents"
+[calls]="calls"
+[callTypes]="callTypes"
+
+(agentSelected)="agentStd()"
+(callTypeSelected)="callTypeSelected.emit(filterModel)"
+(callSelected)="callStd()"
+></app-filter>
+<main class="body pt-3 pt-md-4 mt-md-2 flex-grow-1 d-flex">
+    <div class="container-fluid px-md-5">
+        <ng-container *ngIf="!!filterModel.agent_id && !!filterModel.calltype_id && !!filterModel.call_id">
+            <div class="row h-100 pb-3 pb-lg-5">
+                <section class="real col-12 col-md-6 mb-lg-0 mb-4">
+                    <app-transcript-card
+                    [titleLeft]="'Real'"
+                    >
+                        <p class="title-right mb-0">
+                            <span class="font-weight-bold mr-3" style="font-size: 1rem;">{{getPercentageTranscriptCovered()}}%</span>
+                            <span class="">
+                                <app-piechart
+                                [percentage]="getPercentageTranscriptCovered()"
+                                ></app-piechart>
+                            </span>
+                        </p>
+                        <div class="body-content px-2 pl-md-4 pr-md-2 py-3">
+                            <div class="_transcript">
+                                <app-transcript
+                                [callDetail]="callDetails"
+                                [filterModel]="filterModel"
+                                [speakerFirstName]="getCustomerFirstName()"
+                                [agentFirstName]="getAgentFirstName()"
+                                ></app-transcript>
+                            </div>
+                        </div>
+                    </app-transcript-card>
+                </section>
+                <section class="expected col-12 col-md-6">
+                    <app-transcript-card
+                    [titleLeft]="'Expected'"
+                    >
+                        <p class="title-right mb-0">
+                            <span class="font-weight-bold mr-3" style="font-size: 1rem;">{{getPercentageScriptCovered()}}%</span>
+                            <span class="">
+                                <app-piechart
+                                [percentage]="getPercentageScriptCovered()"
+                                ></app-piechart>
+                            </span>
+                        </p>
+
+                        <div class="body-content px-2 pl-md-4 pr-md-2 py-3">
+                            <div class="_script">
+                                <app-script
+                                [script]="callDetails.script"
+                                [filterModel]="filterModel"
+                                [callDetail]="callDetails"
+                                ></app-script>
+                            </div>
+                        </div>
+                    </app-transcript-card>
+                </section>
+            </div>
+        </ng-container>
+
+        <ng-container *ngIf="!filterModel.agent_id || !filterModel.calltype_id || !filterModel.call_id">
+            <div class="d-flex h-100 justify-content-center flex-column py-3 selection-pending">
+                <div class="d-flex mx-auto flex-column">
+                    <img class="mb-5" src="/assets/img/sel-pending.svg" alt="">
+                    <h4 class="font-weight-bold mb-3 mb-md-4">Selection pending</h4>
+                    <p>Select a call from top menu and a transcript analysis will be shown here</p>
+                </div>
+            </div>
+        </ng-container>
+    </div>
+</main>
+

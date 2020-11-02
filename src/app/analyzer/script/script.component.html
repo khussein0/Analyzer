@@ -1,0 +1,18 @@
+<div class="script table-responsive">
+  <div class="t-header d-flex py-2 mr-lg-3">
+    <p class="mb-0 line font-weight-bold">Line</p>
+    <p class="mb-0 speaker font-weight-bold">Speaker</p>
+    <p class="mb-0 sentence font-weight-bold">Sentence</p>
+  </div>
+  <div class="t-body">
+    <div class="d-flex item" *ngFor="let item of script">
+      <p class="mb-0 line py-2">{{item.order+1}}</p>
+      <p class="mb-0 py-2 speaker">Rep:</p>
+      <p class="mb-0 sentence p-2"
+      matTooltip="{{shouldHighlight(item) ? getTooltipText(item) : ''}}"
+      (mouseleave)="$event.target.classList.remove('highdark'); highlight($event.target, item);" 
+      (mouseenter)="shouldHighDark($event.target, item)" 
+      [class.highlight]="shouldHighlight(item)">{{item.sentence}}</p>
+    </div>
+  </div>
+</div>

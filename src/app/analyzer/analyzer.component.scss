@@ -1,0 +1,32 @@
+@import '_config';
+
+:host {
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+main {
+    div.selection-pending {
+        h4 {
+            font-size: 1.5rem;
+            text-align: center;
+            letter-spacing: 0.0018em;
+            color: rgba(0, 0, 0, 0.87);
+        }
+
+        p {
+            font-size: 1rem;
+            text-align: center;
+            line-height: 28px;
+            color: rgba(0, 0, 0, 0.87);
+
+            @include lg {
+                max-width: 319px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+        }
+    }
+}

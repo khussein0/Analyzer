@@ -1,0 +1,19 @@
+<div class="script table-responsive">
+  <div class="t-header d-flex py-2 mr-lg-3">
+    <p class="mb-0 line font-weight-bold">Time</p>
+    <p class="mb-0 speaker font-weight-bold">Speaker</p>
+    <p class="mb-0 sentence font-weight-bold">Sentence</p>
+  </div>
+  <div class="t-body">
+    <div class="d-flex item" *ngFor="let item of callDetail.transcript">
+      <p class="mb-0 line py-2">{{item.timeFrom | duration}}</p>
+      <p class="mb-0 py-2 speaker">{{item.channel == '1' ? agentFirstName : item.channel == '0' ? 'Unknown' : speakerFirstName}}</p>
+      <p 
+      matTooltip="{{shouldHighlight(item) ? getTooltipText(item) : ''}}"
+      (mouseleave)="$event.target.classList.remove('highdark'); highlight($event.target, item);" 
+      (mouseenter)="shouldHighDark($event.target, item)" 
+      class="mb-0 sentence p-2" 
+      [class.highlight]="shouldHighlight(item)">{{item.sentence}}</p>
+    </div>
+  </div>
+</div>
